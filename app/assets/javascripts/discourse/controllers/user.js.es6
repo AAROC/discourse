@@ -21,6 +21,10 @@ export default ObjectController.extend(CanCheckEmails, {
 
   linkWebsite: Em.computed.not('model.isBasic'),
 
+  removeNoFollow: function() {
+    return this.get('model.trust_level') > 2 && !this.siteSettings.tl3_links_no_follow;
+  }.property('model.trust_level'),
+
   canSeePrivateMessages: Ember.computed.or('viewingSelf', 'currentUser.admin'),
   canSeeNotificationHistory: Em.computed.alias('canSeePrivateMessages'),
 
