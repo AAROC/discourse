@@ -129,7 +129,7 @@ export default function() {
 
     this.get('/queued_posts', function() {
       return response({
-        queued_posts: [{id: 1, raw: 'queued post text'}]
+        queued_posts: [{id: 1, raw: 'queued post text', can_delete_user: true}]
       });
     });
 
@@ -173,6 +173,14 @@ export default function() {
       data.post.id = request.params.post_id;
       data.post.version = 2;
       return response(200, data.post);
+    });
+
+    this.get('/t/403.json', () => {
+      return response(403, {});
+    });
+
+    this.get('/t/500.json', () => {
+      return response(502, {});
     });
 
     this.put('/t/:slug/:id', (request) => {
